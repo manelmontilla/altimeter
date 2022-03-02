@@ -154,7 +154,9 @@ class AWSResourceSpec(ResourceSpec):
         context = {"account_id": scan_accessor.account_id, "region": scan_accessor.region}
         list_from_aws_result = cls._list_from_aws(scan_accessor)
         resources = cls._list_from_aws_result_to_resources(
-            list_from_aws_result=list_from_aws_result, context=context
+            list_from_aws_result=list_from_aws_result,
+            context=context,
+            account_id= scan_accessor.account_id,
         )
         return resources
 
@@ -185,6 +187,7 @@ class AWSResourceSpec(ResourceSpec):
         cls: Type["AWSResourceSpec"],
         list_from_aws_result: ListFromAWSResult,
         context: Dict[str, str],
+        account_id: str,
     ) -> List[Resource]:
         resources: List[Resource] = []
         for arn, resource_dict in list_from_aws_result.resources.items():
@@ -217,7 +220,10 @@ class AWSResourceSpec(ResourceSpec):
             )
 
             resource = Resource(
-                resource_id=arn, type=cls.get_full_type_name(), link_collection=link_collection,
+                resource_id=arn,
+                type=cls.get_full_type_name(),
+                link_collection=link_collection,
+                account_id= account_id,
             )
             resources.append(resource)
         return resources

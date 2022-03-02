@@ -20,6 +20,7 @@ class Resource(BaseImmutableModel):
     resource_id: str
     type: str
     link_collection: LinkCollection
+    account_id: str
 
     def to_rdf(self, namespace: Namespace, graph: Graph, node_cache: NodeCache) -> None:
         """Graph this Resource as a URIRef on a Graph.
@@ -48,6 +49,7 @@ class Resource(BaseImmutableModel):
             "~id": self.resource_id,
             "~label": self.type,
             "arn": self.resource_id,
+            "account_id": self.account_id,
         }
         self.link_collection.to_lpg(vertex, vertices, edges)
         vertices.append(vertex)

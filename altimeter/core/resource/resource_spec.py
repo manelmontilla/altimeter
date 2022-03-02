@@ -192,6 +192,8 @@ class ResourceSpec(abc.ABC):
             resources = spec_classes_resources[winning_class]
         full_type_names = {resource.type for resource in resources}
         merged_resource_type_name = full_type_names.pop()
+        account_ids = [resource.account_id for resource in resources]
+        merged_account_id = account_ids.pop()
         merged_link_keys_links: Dict[str, Link] = {}
         for duplicate_resource in resources:
             for link in duplicate_resource.link_collection.get_links():
@@ -214,6 +216,7 @@ class ResourceSpec(abc.ABC):
             resource_id=resource_id,
             type=merged_resource_type_name,
             link_collection=link_collection,
+            account_id= merged_account_id,
         )
 
 

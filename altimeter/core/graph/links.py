@@ -137,6 +137,7 @@ class MultiLink(BaseLink):
         v = {
             "~id": vertex_id,
             "~label": self.pred,
+            "account_id": parent["account_id"],
         }
         edge_label = prefix if prefix != "" else self.pred
         edge = {
@@ -276,6 +277,7 @@ class TagLink(BaseLink):
             vertex["~id"] = f"{self.pred}:{self.obj}"
             vertex["~label"] = "tag"
             vertex[self.pred] = self.obj
+            vertex["account_id"] = parent["account_id"]
             vertices.append(vertex)
         edge = {
             "~id": uuid.uuid1(),
