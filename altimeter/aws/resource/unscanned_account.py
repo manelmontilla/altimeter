@@ -32,6 +32,7 @@ class UnscannedAccountResourceSpec(AWSResourceSpec):
             resource_id=cls.generate_arn(resource_id=account_id),
             type=cls.get_full_type_name(),
             link_collection=LinkCollection(simple_links=simple_links),
+            account_id= account_id,
         )
 
     @classmethod
